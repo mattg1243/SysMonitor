@@ -16,6 +16,8 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "electron": "^21.0.1",
+    "os-utils": "^0.0.14",
+    "systeminformation": "^5.12.6",
     "wait-on": "^6.0.1"
   },
   "devDependencies": {
