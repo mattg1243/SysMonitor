@@ -1,8 +1,5 @@
-import { create } from 'domain';
 import { app, BrowserWindow, Menu } from 'electron';
-import electronReload from 'electron-reload';
 import * as path from 'path';
-import * as url from 'url';
 import menuTemplate from './mainMenu';
 // track env
 const env = process.env.NODE_ENV || 'development';
@@ -17,7 +14,7 @@ const createWindow = () => {
     },
   });
   // load index.html
-  win.loadFile(path.join(__dirname, '../index.html'));
+  win.loadURL('http://localhost:3000');
   // open devtools
   win.webContents.openDevTools();
 };
