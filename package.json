@@ -1,26 +1,30 @@
 {
-    "name": "electron-sysinfo",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "tsc && electron ./dist/index.js",
-        "format": "prettier --config .prettierrc.json 'src/**/*.ts' --write"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "electron": "^21.0.1"
-    },
-    "devDependencies": {
-        "@types/node": "^18.7.23",
-        "@types/node-fetch": "^2.6.2",
-        "@typescript-eslint/eslint-plugin": "^5.38.1",
-        "@typescript-eslint/parser": "^5.38.1",
-        "eslint": "^8.24.0",
-        "prettier": "^2.7.1",
-        "typescript": "^4.8.4"
-    }
+  "name": "electron-sysinfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && electron ./dist/main.js",
+    "devstart": "concurrently \"tsc -w\" \"electron ./dist/main.js\"",
+    "watch": "tsc -w",
+    "format": "prettier --config .prettierrc.json 'src/**/*.ts' --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^21.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.23",
+    "@types/node-fetch": "^2.6.2",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "concurrently": "^7.4.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "eslint": "^8.24.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
+  }
 }
