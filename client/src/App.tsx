@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Col, Row, Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
-
+import BatteryChart from './components/BatteryChart';
 const { Header, Content, Footer, Sider } = Layout;
 // a custom hook i found made by Dan Abramov
 function useInterval(callback, delay) {
@@ -70,6 +70,7 @@ function App() {
             </Col>
             <Col span={8} style={{ height: '100%', textAlign: 'center' }}>
               <>BAT: </>
+              <BatteryChart />
             </Col>
           </Row>
         </Content>

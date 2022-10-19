@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld('api', {
   // cpu percentage
   getCpuPercentage: async () => await ipcRenderer.invoke('get-cpu-percentage'),
   // mem percentage
-  getMemPercentage: (args) => ipcRenderer.invoke('get-mem-percentage', args),
+  getMemPercentage: () => ipcRenderer.invoke('get-mem-percentage'),
   // Receive Methods
-  getBatData: (args) => ipcRenderer.invoke('get-bat-data', args),
+  getBatData: () => ipcRenderer.invoke('get-bat-data'),
 });
