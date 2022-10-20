@@ -33,7 +33,7 @@ contextBridge.exposeInMainWorld('api', {
   // cpu percentage
   getCpuPercentage: async () => await ipcRenderer.invoke('get-cpu-percentage'),
   // mem percentage
-  getMemPercentage: () => ipcRenderer.invoke('get-mem-percentage'),
+  getMemPercentage: async () => await ipcRenderer.invoke('get-mem-percentage'),
   // battery percentage
   getBatData: () => ipcRenderer.invoke('get-bat-data'),
 });
@@ -51,7 +51,7 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       // here we tell Electron to give our frontend access to preload.js
-			preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
     },
   });
@@ -66,7 +66,7 @@ ipcMain.handle('get-cpu-percentage', async (e, args) => {
   const result = await new Promise(async (resolve, reject) => {
     resolve(await os.cpu.free());
   });
-	// returning a result in this callback sends the value back to the frontend 
-	return result;
+  // returning a result in this callback sends the value back to the frontend 
+  return result;
 });
 ```
