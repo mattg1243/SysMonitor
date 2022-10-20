@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChartData, ChartOptions } from 'chart.js';
 import {
   Chart as ChartJS,
@@ -11,29 +11,21 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
+// component specific types
+type LabelOptions = '6hr' | '5hr' | '4hr' | '3hr' | '2hr' | '1hr' | 'Now';
+type Labels = Array<LabelOptions>;
 
-type LabelOption = '6hr' | '5hr' | '4hr' | '3hr' | '2hr' | '1hr' | 'Now';
-type Labels = Array<LabelOption>;
-// chart will be passed data from root component upon useInterval hook call
-type BatteryChartProps = { percentage: number };
-export default function BatteryChart(props: BatteryChartProps): JSX.Element {
-  // mock data to test rendering and scale
-  // const data: ChartData<'line'> = {
-  //   labels: [1, 2, 3, 4, 5],
-  //   datasets: [
-  //     {
-  //       data: [20, 40, 60, 80, 100],
-  //     },
-  //   ],
-  // };
+export default function BatteryChart(): JSX.Element {
+  // state for the battery percentage
+  const [batteryPercentage, setBatterPercentage] = useState([100, 90, 80, 70, 60, 50, 40, 30, 20, 10])
+  // labels for the X axis of the Battery Chart
   const labels: Labels = ['6hr', '5hr', '4hr', '3hr', '2hr', '1hr', 'Now'];
-
+  // data object for the Line Chart component prop
   const data: ChartData<'line'> = {
     labels,
     datasets: [
       {
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+        data: batteryPercentage,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         tension: 0.4,
@@ -55,6 +47,10 @@ export default function BatteryChart(props: BatteryChartProps): JSX.Element {
       },
     },
   };
+  // print out the data on mount so i can see the format
+  useEffect(() => {
+    console.log(data.datasets)
+  })
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
   return <Line data={data} options={options} height={200} />;
 }

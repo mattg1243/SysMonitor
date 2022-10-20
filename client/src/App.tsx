@@ -1,39 +1,25 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
+import useInterval from './components/hooks/useInterval';
 import { Col, Row, Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
 import BatteryChart from './components/BatteryChart';
-const { Header, Content, Footer, Sider } = Layout;
-// a custom hook i found made by Dan Abramov
-function useInterval(callback, delay) {
-  const savedCallback = useRef<Function>();
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-}
+import CpuChart from './components/CpuChart';
+const { Header, Content } = Layout;
 
 function App() {
   // states for data from main process
   const [cpuPercentage, setCpuPercentage] = useState(0);
   const [memPercentage, setMemPercentage] = useState(0);
-  const [batteryData, setBatteryData] = useState({percentage: 1.0});
+  const [batteryData, setBatteryData] = useState({ percentage: 1.0 });
 
   const getCpuPercentage = async () => {
-    let cpuData = await window.api.getCpuPercentage();
-    setCpuPercentage(cpuData);
-    console.log('CPU data from Electron: ' + cpuData);
+    // try {
+    //   let cpuData = await window.api.getCpuPercentage();
+    //   setCpuPercentage(cpuData);
+    //   console.log('CPU data from Electron: ' + cpuData);
+    // } catch (err) {
+    //   console.error(err.message);
+    // }
   };
 
   const getMemPercentage = async () => {
@@ -41,16 +27,12 @@ function App() {
     setMemPercentage(memData);
   };
 
-  const getBatData = async () => {
-    let batData = await window.api.getBatPercentage();
-  };
-
   const getAllData = async () => {
     await getCpuPercentage();
     await getMemPercentage();
   };
 
-  useInterval(getAllData, 500);
+  // useInterval(getAllData, 10000);
 
   return (
     <div className="App">
@@ -61,16 +43,16 @@ function App() {
         <Content style={{ padding: '0 50px', width: '100%', height: '100%' }}>
           <Row>
             <Col span={8} style={{ height: '100%', textAlign: 'center' }}>
-              <>CPU:</>
-              <p>%{parseFloat(cpuPercentage.toFixed(2))}</p>
+              <>CPU Usage:</>
+              <CpuChart />
             </Col>
             <Col span={8} style={{ height: '100%', textAlign: 'center' }}>
-              <>MEM Free:</>
+              <>MEM Usage:</>
               <p>{parseFloat((memPercentage / 1000).toFixed(2))} GB</p>
             </Col>
             <Col span={8} style={{ height: '100%', textAlign: 'center' }}>
               <>BAT: </>
-              <BatteryChart percentage={batteryData.percentage} />
+              <BatteryChart />
             </Col>
           </Row>
         </Content>
