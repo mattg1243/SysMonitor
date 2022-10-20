@@ -35,7 +35,7 @@ contextBridge.exposeInMainWorld('api', {
   // mem percentage
   getMemPercentage: async () => await ipcRenderer.invoke('get-mem-percentage'),
   // battery percentage
-  getBatData: () => ipcRenderer.invoke('get-bat-data'),
+  getBatData: async () => await ipcRenderer.invoke('get-bat-data'),
 });
 ```
 
