@@ -28,7 +28,7 @@ function App() {
   // states for data from main process
   const [cpuPercentage, setCpuPercentage] = useState(0);
   const [memPercentage, setMemPercentage] = useState(0);
-  const [batteryData, setBatteryData] = useState({});
+  const [batteryData, setBatteryData] = useState({percentage: 1.0});
 
   const getCpuPercentage = async () => {
     let cpuData = await window.api.getCpuPercentage();
@@ -70,7 +70,7 @@ function App() {
             </Col>
             <Col span={8} style={{ height: '100%', textAlign: 'center' }}>
               <>BAT: </>
-              <BatteryChart />
+              <BatteryChart percentage={batteryData.percentage} />
             </Col>
           </Row>
         </Content>
