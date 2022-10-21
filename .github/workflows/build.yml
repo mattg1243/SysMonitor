@@ -9,10 +9,10 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 16
-    - name: install dependencies
-      run: npm ci
     - name: install tsc
       run: npm install -g typescript
+    - name: install dependencies
+      run: npm ci
     - name: compile typescript
       run: tsc
     - name: build
@@ -25,10 +25,10 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 16
-    - name: install dependencies
-      run: npm ci
     - name: install tsc
       run: npm install -g typescript
+    - name: install dependencies
+      run: npm ci
     - name: compile typescript
       run: tsc
     - name: build
@@ -41,10 +41,10 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 16
-    - name: install dependencies
-      run: npm ci
     - name: install tsc
       run: npm install -g typescript
+    - name: install dependencies
+      run: npm ci
     - name: compile typescript
       run: tsc
     - name: build
