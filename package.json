@@ -2,12 +2,12 @@
   "name": "electron-sysinfo",
   "version": "1.0.0",
   "description": "",
-  "main": "main.ts",
+  "main": "./dist/main.js",
   "homepage": "./",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && electron ./dist/main.js",
-    "devstart": "concurrently \"tsc -w\" \"electron ./dist/main.js\"",
+    "devstart": "concurrently \"tsc -w\" \"electron .\"",
     "watch": "tsc -w",
     "format": "prettier --config .prettierrc.json 'src/**/*.ts' --write"
   },
