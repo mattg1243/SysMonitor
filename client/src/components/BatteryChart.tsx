@@ -17,7 +17,7 @@ type Labels = Array<LabelOptions>;
 
 export default function BatteryChart(): JSX.Element {
   // state for the battery percentage
-  const [batteryPercentage, setBatterPercentage] = useState([100, 90, 80, 70, 60, 50, 40, 30, 20, 10])
+  const [batteryPercentage, setBatteryPercentage] = useState([100, 90, 80, 70, 60, 50, 40, 30, 20, 10])
   // labels for the X axis of the Battery Chart
   const labels: Labels = ['6hr', '5hr', '4hr', '3hr', '2hr', '1hr', 'Now'];
   // data object for the Line Chart component prop
@@ -35,8 +35,11 @@ export default function BatteryChart(): JSX.Element {
   };
 
   // config
-  const options: ChartOptions = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
+    scales: {
+      
+    },
     plugins: {
       legend: {
         display: false,

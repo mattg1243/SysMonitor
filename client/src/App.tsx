@@ -32,7 +32,7 @@ function App() {
     await getMemPercentage();
   };
 
-  // useInterval(getAllData, 10000);
+  useInterval(getAllData, 2000);
 
   return (
     <div className="App">

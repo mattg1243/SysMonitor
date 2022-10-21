@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import { ChartData, ChartOptions } from 'chart.js';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-// component specific types
-type LabelOptions = '6hr' | '5hr' | '4hr' | '3hr' | '2hr' | '1hr' | 'Now';
-type Labels = Array<LabelOptions>;
 
 export default function CpuChart(props): JSX.Element {
   const [cpuPercentage, setCpuPercentage] = useState([76]);
@@ -21,8 +18,11 @@ export default function CpuChart(props): JSX.Element {
     ],
   };
 
-  const options: ChartOptions = {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
+    scales: {
+      
+    },
     plugins: {
       legend: {
         display: false,
