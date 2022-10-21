@@ -1,15 +1,19 @@
 {
   "name": "electron-sysinfo",
+  "productName": "SysMonitor",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/main.js",
   "homepage": "./",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && electron ./dist/main.js",
+    "start": "electron-forge start",
     "devstart": "concurrently \"tsc -w\" \"electron .\"",
     "watch": "tsc -w",
-    "format": "prettier --config .prettierrc.json 'src/**/*.ts' --write"
+    "format": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +21,8 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "custom-electron-titlebar": "^4.1.1",
-    "electron": "^21.0.1",
+    "dotenv": "^16.0.3",
+    "electron-squirrel-startup": "^1.0.0",
     "faker": "^6.6.6",
     "node-os-utils": "^1.3.7",
     "os-utils": "^0.0.14",
@@ -25,6 +30,12 @@
     "wait-on": "^6.0.1"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.67",
+    "@electron-forge/maker-deb": "^6.0.0-beta.67",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.67",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.67",
+    "@electron-forge/maker-zip": "^6.0.0-beta.67",
+    "@electron-forge/publisher-github": "^6.0.0-beta.67",
     "@faker-js/faker": "^7.5.0",
     "@types/node": "^18.7.23",
     "@types/node-fetch": "^2.6.2",
@@ -33,9 +44,50 @@
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "concurrently": "^7.4.0",
+    "electron": "^21.2.0",
     "electron-reload": "^2.0.0-alpha.1",
     "eslint": "^8.24.0",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
+  },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "mattg1243",
+              "name": "SysMonitor"
+            },
+            "prerelease": false,
+            "draft": true
+          }
+        }
+      ],
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_sysinfo"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
