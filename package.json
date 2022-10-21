@@ -2,7 +2,7 @@
   "name": "electron-sysinfo",
   "productName": "SysMonitor",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple resource monitor app built with Electron and React",
   "main": "./dist/main.js",
   "homepage": "./",
   "scripts": {
