@@ -10,9 +10,11 @@ jobs:
       with:
         node-version: 16
     - name: install dependencies
-      run: npm install
+      run: npm ci
+    - name: install tsc
+      run: npm install -g typescript
     - name: compile typescript
-      run: tsc
+      run: npm run build
     - name: build
       run: npm run make
 
@@ -24,9 +26,11 @@ jobs:
       with:
         node-version: 16
     - name: install dependencies
-      run: npm install
+      run: npm ci
+    - name: install tsc
+      run: npm install -g typescript
     - name: compile typescript
-      run: tsc
+      run: npm run build
     - name: build
       run: npm run make
 
@@ -38,8 +42,10 @@ jobs:
       with:
         node-version: 16
     - name: install dependencies
-      run: npm install
+      run: npm ci
+    - name: install tsc
+      run: npm install -g typescript
     - name: compile typescript
-      run: tsc
+      run: npm run build
     - name: build
       run: npm run make
