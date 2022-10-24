@@ -1,85 +1,21 @@
-import { app, BrowserWindow, Menu, ipcMain, ipcRenderer } from 'electron';
-import * as os from 'node-os-utils';
-import * as si from 'systeminformation';
-import * as path from 'path';
-import menuTemplate from './mainMenu';
-import electronReload from 'electron-reload';
-electronReload(__dirname, {});
-// track env
-const env = process.env.NODE_ENV || 'development';
+import { ipcMain } from 'electron';
+import IPCHandlers from './IPCHandlers';
+import App from './App';
 
-const createWindow = () => {
-  // create browser window
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      contextIsolation: true,
-    },
-  });
-  // load index.html
-  win.loadURL('http://localhost:3000');
-  // open devtools
-  win.webContents.openDevTools();
-};
+// track env
+const ENV = process.env.NODE_ENV || 'development';
+// get port of React app
+const FRONTEND_PORT = parseInt(process.env.PORT) || 3000;
+// enable hot reload if in dev env
+if (ENV === 'development') {
+  const electronReload = require('electron-reload');
+  electronReload(__dirname, {});
+}
 
 // ipc logic
-ipcMain.handle('get-cpu-percentage', async (e, args) => {
-  try {
-    const result = await new Promise(async (resolve, reject) => {
-      resolve(await os.cpu.free());
-    });
-    return result;
-  } catch (err) {
-    console.error(err.message);
-  }
-});
+ipcMain.handle('get-cpu-percentage', IPCHandlers.getCpuData);
+ipcMain.handle('get-mem-percentage', IPCHandlers.getMemData);
+ipcMain.handle('get-bat-data', IPCHandlers.getBatData);
 
-ipcMain.handle('get-mem-percentage', async (e, args) => {
-  try {
-    const result = await new Promise(async (resolve, reject) => {
-      // console.log('free mem: ' + (await os.mem.free()).freeMemMb / 1000 + ' GB');
-      resolve((100 * (await os.mem.free()).freeMemMb) / (await os.mem.free()).totalMemMb);
-    });
-    return result;
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-ipcMain.handle('get-bat-data', async (e, args) => {
-  try {
-    const result = await new Promise(async (resolve, reject) => {
-      si.battery((v) => {
-        resolve(v.percent.toFixed(2));
-      });
-    });
-    return result;
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-// start the app
-app.whenReady().then(() => {
-  createWindow();
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    // build menu from template
-    const mainMenu = Menu.buildFromTemplate(menuTemplate);
-    // insert menu
-    Menu.setApplicationMenu(mainMenu);
-    // send sys info to the client
-  });
-});
-
-// quit when all windows are closed
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  } else {
-    app.quit();
-  }
-});
+// build and start the app
+App.run(FRONTEND_PORT);
