@@ -1,4 +1,5 @@
 import { app, BrowserWindow, Menu } from 'electron';
+import menuTemplate from './mainMenu';
 import path from 'path';
 
 export default class App {
@@ -27,7 +28,7 @@ export default class App {
     this.createWindow(port);
 
     app.on('activate', () => {
-      if (BrowserWindow.getAllWindows().length === 0) createWindow();
+      if (BrowserWindow.getAllWindows().length === 0) this.createWindow(port);
       // build menu from template
       const mainMenu = Menu.buildFromTemplate(menuTemplate);
       // insert menu
