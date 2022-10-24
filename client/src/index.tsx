@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+// defining ipc api here for typesafety in the frontend
 declare global {
   interface Window {
-    api: any;
+    api: {
+      getCpuPercentage: Function,
+      getMemPercentage: Function
+      getBatData: Function,
+    };
   }
 }
 
