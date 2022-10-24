@@ -17,7 +17,7 @@
     "publish": "electron-forge publish"
   },
   "keywords": [],
-  "author": "",
+  "author": "Matt Gallucci",
   "license": "ISC",
   "typeRoots": [
     "./node_modules/@types"
